@@ -41,21 +41,13 @@ public class DrawMesh : MonoBehaviour
 
     public void Draw()
     {
-        //Created mesh define
         Mesh mesh = new Mesh();
 
         MeshCreate(mesh);
 
-        for (int i = 0; i < vertices.Count; i++)
-        {
-            vertices[i] = GetTemporaryIndex();
-        }
-
         TriangleDefining(triangles);
-        
 
-        mesh.vertices = vertices.ToArray();
-        mesh.triangles = triangles.ToArray();
+        ConvertToArray(mesh);
 
         SetMeshColor(_path, _color);
 
@@ -81,6 +73,12 @@ public class DrawMesh : MonoBehaviour
         Vector3 lastMousePosition = GetStartPosition();
 
         return lastMousePosition;
+    }
+
+    private void ConvertToArray(Mesh _mesh)
+    {
+        _mesh.vertices = vertices.ToArray();
+        _mesh.triangles = triangles.ToArray();
     }
 
 
@@ -184,12 +182,17 @@ public class DrawMesh : MonoBehaviour
     {
         GameObject drawing = new GameObject();
         drawing.gameObject.name = "Path";
-        
+
         drawing.AddComponent<MeshFilter>();
         drawing.AddComponent<MeshRenderer>();
 
         _path = drawing;
         _path.GetComponent<MeshFilter>().mesh = _mesh;
+
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            vertices[i] = GetTemporaryIndex();
+        }
     }
 
     public void SetMeshColor(GameObject _mesh, Color _desiredColor)

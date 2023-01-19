@@ -1,0 +1,20 @@
+{
+    "name": "Voxelity.Base.Editor",
+    "rootNamespace": "Voxelity.Editor",
+    "references": [
+        "GUID:5ea33b3cd523f49c6ab92d8eb5ce311b",
+        "GUID:42fc1254453c88542bc94e3dfcdbf4e5",
+        "GUID:857ba3ef1883f6843b17c8100864d359"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(DrawMesh))]
-public class MeshTriangles : MonoBehaviour
+public static class MeshTriangles
 {
-    public void TriangleDefining(List<int> triangles)
+    public static void TriangleDefining(List<int> triangles)
     {
         //Front Face
         triangles[0] = 0;

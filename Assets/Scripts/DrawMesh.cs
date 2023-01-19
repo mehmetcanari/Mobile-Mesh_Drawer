@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Voxelity.Extensions;
 
 public class DrawMesh : MonoBehaviour
 {
-    public MeshTriangles _storedDatas;
-
     protected int vIndex;
     protected int vIndex0;
     protected int vIndex1;
@@ -20,11 +19,14 @@ public class DrawMesh : MonoBehaviour
     private List<Vector3> vertices = new List<Vector3>(new Vector3[8]);
     private List<int> triangles = new List<int>(new int[36]);
 
+    public PhysicMaterial _pathPhysics;
     public Camera _cam;
     public GameObject _path;
-    public Color _color;
+    public GameObject _oldPath;
+
+    private Vector3 _startPos;
     
-    [Range(0.01f, 0.5f)]
+    [Range(0.01f, 0.1f)]
     public float _pathThickness;
 
 
@@ -42,21 +44,32 @@ public class DrawMesh : MonoBehaviour
             return;
 
         StopAllCoroutines();
+
+        //It because old meshes destroyed for new ones
+        _oldPath = _path;
+
+        MeshAdjustments(_path);
+
     }
 
     public void Draw()
     {
+        if (_oldPath)
+            Destroy(_oldPath.gameObject);
+
+        _startPos = GetStartPosition();
+
         Mesh mesh = new Mesh();
 
         MeshCreate(mesh);
 
-        _storedDatas.TriangleDefining(triangles);
+        MeshTriangles.TriangleDefining(triangles);
 
         ConvertToArray(mesh);
 
-        SetMeshColor(_path, _color);
+        SetMeshColor(_path);
 
-        StartCoroutine(CallTasks(mesh, GetLastMPosition(), 0.1f));
+        StartCoroutine(CallTasks(mesh, GetStartPosition(), 0.1f));
     }
 
     public Vector3 GetStartPosition()
@@ -73,21 +86,23 @@ public class DrawMesh : MonoBehaviour
         return temp;
     }
 
-    public Vector3 GetLastMPosition()
-    {
-        Vector3 lastMousePosition = GetStartPosition();
-
-        return lastMousePosition;
-    }
-
     private void ConvertToArray(Mesh _mesh)
     {
         _mesh.vertices = vertices.ToArray();
         _mesh.triangles = triangles.ToArray();
     }
-    
 
-    public void TriangleComputing(List<int> triangles)
+    private void MeshAdjustments(GameObject _path)
+    {
+        if (Vector3.Distance(_startPos, GetStartPosition()) >= 0 &&
+            Vector3.Distance(_startPos, GetStartPosition()) <= 0.2)
+            return;
+
+        var collider = _path.AddComponent<MeshCollider>();
+        collider.material = _pathPhysics;
+    }
+
+    private void TriangleComputing(List<int> triangles)
     {
         int tIndex = triangles.Count - 30;
 
@@ -132,7 +147,7 @@ public class DrawMesh : MonoBehaviour
             triangles[tIndex + 29] = vIndex6;
     }
 
-    public void MeshCreate(Mesh _mesh)
+    private void MeshCreate(Mesh _mesh)
     {
         GameObject drawing = new GameObject();
         drawing.gameObject.name = "Path";
@@ -149,12 +164,12 @@ public class DrawMesh : MonoBehaviour
         }
     }
 
-    public void SetMeshColor(GameObject _mesh, Color _desiredColor)
+    private void SetMeshColor(GameObject _mesh)
     {
-        _mesh.GetComponent<Renderer>().material.color = _desiredColor;
+        _mesh.GetComponent<Renderer>().material.color = ColorExtensions.random;
     }
 
-    public void MeshThickness(Vector3 _mousePosition, float _thickness)
+    private void MeshThickness(Vector3 _mousePosition, float _thickness)
     {
         vertices.AddRange(new Vector3[4]);
             triangles.AddRange(new int[30]);
@@ -192,7 +207,7 @@ public class DrawMesh : MonoBehaviour
             vertices[vIndex7] = bottomLeftVertex;
     }
 
-    public IEnumerator CallTasks(Mesh _mesh, Vector3 _mousePosition, float _meshProduceRate)
+    private IEnumerator CallTasks(Mesh _mesh, Vector3 _mousePosition, float _meshProduceRate)
     {
         while (true)
         {

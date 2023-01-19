@@ -1,0 +1,16 @@
+{
+    "name": "Voxelity.Timer.Core",
+    "rootNamespace": "Voxelity.Timer",
+    "references": [
+        "GUID:857ba3ef1883f6843b17c8100864d359"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

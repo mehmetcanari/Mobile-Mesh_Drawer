@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Voxelity.Extensions;
 
 public class VelocityBuffer : MonoBehaviour
 {
@@ -11,7 +12,16 @@ public class VelocityBuffer : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Path"))
         {
-            _rigidbody.velocity *= _velocityMultiplier * Time.deltaTime;
+            if(_rigidbody.velocity.magnitude > 15)
+            {
+                _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity,
+                    15);
+            }
+            else
+            {
+                _rigidbody.velocity *= _velocityMultiplier * Time.deltaTime;
+                
+            }
         }
     }
 }

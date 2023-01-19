@@ -6,6 +6,7 @@ using Voxelity.Extensions;
 public class BallSpawner : MonoBehaviour
 {
     public BallData _data;
+    public GameObject _ballParent;
 
     private void Update()
     {
@@ -22,6 +23,10 @@ public class BallSpawner : MonoBehaviour
             if (_data._spawnTime % 60 == 0)
             {
                 var _spawnedBall = Instantiate(_data._ball, _data._ballSpawnPosition.position, Quaternion.identity);
+
+                _spawnedBall.GetComponent<Rigidbody>().AddForce(Vector3.down * 5f, ForceMode.Impulse);
+
+                _spawnedBall.transform.SetParent(_ballParent.transform);
                 _spawnedBall.GetComponent<MeshRenderer>().material.color = ColorExtensions.random;
                 Destroy(_spawnedBall, 5);
             }

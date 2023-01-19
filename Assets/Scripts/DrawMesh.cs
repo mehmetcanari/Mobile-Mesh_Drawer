@@ -151,6 +151,7 @@ public class DrawMesh : MonoBehaviour
     {
         GameObject drawing = new GameObject();
         drawing.gameObject.name = "Path";
+        drawing.gameObject.tag = "Path";
 
         drawing.AddComponent<MeshFilter>();
         drawing.AddComponent<MeshRenderer>();

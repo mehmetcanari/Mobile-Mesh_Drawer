@@ -23,33 +23,28 @@ public class DrawMesh : MonoBehaviour
     public Camera _cam;
     public GameObject _path;
     public GameObject _oldPath;
+    public GraphicRaycast _graphic;
 
     private Vector3 _startPos;
     
     [Range(0.01f, 0.1f)]
     public float _pathThickness;
 
-
     public void StartDraw(InputAction.CallbackContext _context)
     {
-        if(!_context.performed)
-            return;
-
-        Draw();
+        if (_graphic.AllowDraw)
+        {
+            if (!_context.performed) return;
+            Draw();
+            StartCoroutine(CheckerRecursive());
+        }
     }
 
     public void EndDraw(InputAction.CallbackContext _context)
     {
-        if(!_context.performed)
-            return;
-
-        StopAllCoroutines();
-
-        //It because old meshes destroyed for new ones
-        _oldPath = _path;
-
-        MeshAdjustments(_path);
-
+        if(!_context.performed) return;
+        EndDrawTasks();
+        _graphic.AllowDraw = true;
     }
 
     public void Draw()
@@ -70,6 +65,21 @@ public class DrawMesh : MonoBehaviour
         SetMeshColor(_path);
 
         StartCoroutine(CallTasks(mesh, GetStartPosition(), 0.1f));
+    }
+
+    public IEnumerator CheckerRecursive()
+    {
+        if (_graphic.AllowDraw)
+        {
+            Debug.Log("ALLOW");
+        }
+        else
+        {
+            Debug.Log("Not Allow");
+            EndDrawTasks();
+        }
+        yield return null;
+        StartCoroutine(CheckerRecursive());
     }
 
     public Vector3 GetStartPosition()
@@ -100,6 +110,16 @@ public class DrawMesh : MonoBehaviour
 
         var collider = _path.AddComponent<MeshCollider>();
         collider.material = _pathPhysics;
+    }
+
+    private void EndDrawTasks()
+    {
+        if (_path)
+        {
+            StopAllCoroutines();
+            _oldPath = _path;
+            MeshAdjustments(_path);
+        }
     }
 
     private void TriangleComputing(List<int> triangles)
@@ -233,7 +253,6 @@ public class DrawMesh : MonoBehaviour
             _mesh.triangles = triangles.ToArray();
 
             _mousePosition = _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-
             yield return null;
         }
     }

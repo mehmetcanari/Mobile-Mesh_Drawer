@@ -12,15 +12,14 @@ public class VelocityBuffer : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Path"))
         {
-            if(_rigidbody.velocity.magnitude > 15)
+            if(_rigidbody.velocity.magnitude > 10)
             {
                 _rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity,
-                    15);
+                    10);
             }
             else
             {
                 _rigidbody.velocity *= _velocityMultiplier * Time.deltaTime;
-                
             }
         }
     }

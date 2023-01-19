@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class DrawMesh : MonoBehaviour
 {
+    public MeshTriangles _storedDatas;
+
     protected int vIndex;
     protected int vIndex0;
     protected int vIndex1;
@@ -21,6 +23,9 @@ public class DrawMesh : MonoBehaviour
     public Camera _cam;
     public GameObject _path;
     public Color _color;
+    
+    [Range(0.01f, 0.5f)]
+    public float _pathThickness;
 
 
     public void StartDraw(InputAction.CallbackContext _context)
@@ -45,7 +50,7 @@ public class DrawMesh : MonoBehaviour
 
         MeshCreate(mesh);
 
-        TriangleDefining(triangles);
+        _storedDatas.TriangleDefining(triangles);
 
         ConvertToArray(mesh);
 
@@ -80,64 +85,13 @@ public class DrawMesh : MonoBehaviour
         _mesh.vertices = vertices.ToArray();
         _mesh.triangles = triangles.ToArray();
     }
-
-
-    public void TriangleDefining(List<int> triangles)
-    {
-        //Front Face
-        triangles[0] = 0;
-        triangles[1] = 2;
-        triangles[2] = 1;
-        triangles[3] = 0;
-        triangles[4] = 3;
-        triangles[5] = 2;
-
-        //Top Face
-        triangles[6] = 2;
-        triangles[7] = 3;
-        triangles[8] = 4;
-        triangles[9] = 2;
-        triangles[10] = 4;
-        triangles[11] = 5;
-
-        //Right Face
-        triangles[12] = 1;
-        triangles[13] = 2;
-        triangles[14] = 5;
-        triangles[15] = 1;
-        triangles[16] = 5;
-        triangles[17] = 6;
-
-        //Left Face
-        triangles[18] = 0;
-        triangles[19] = 7;
-        triangles[20] = 4;
-        triangles[21] = 0;
-        triangles[22] = 4;
-        triangles[23] = 3;
-
-        //Back Face
-        triangles[24] = 5;
-        triangles[25] = 4;
-        triangles[26] = 7;
-        triangles[27] = 5;
-        triangles[28] = 7;
-        triangles[29] = 6;
-
-        //Bottom Face
-        triangles[30] = 0;
-        triangles[31] = 6;
-        triangles[32] = 7;
-        triangles[33] = 0;
-        triangles[34] = 1;
-        triangles[35] = 6;
-    }
+    
 
     public void TriangleComputing(List<int> triangles)
     {
         int tIndex = triangles.Count - 30;
 
-        //New top Face
+            //New top Face
             triangles[tIndex + 0] = vIndex2;
             triangles[tIndex + 1] = vIndex3;
             triangles[tIndex + 2] = vIndex4;
@@ -254,7 +208,7 @@ public class DrawMesh : MonoBehaviour
             }
 
             //SET THICKNESS
-            MeshThickness(_mousePosition, 0.1f);
+            MeshThickness(_mousePosition, _pathThickness);
 
             //COMPUTE HERE
             TriangleComputing(triangles);

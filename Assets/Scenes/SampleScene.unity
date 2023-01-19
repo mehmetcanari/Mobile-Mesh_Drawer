@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 301366881}
   - component: {fileID: 301366883}
   - component: {fileID: 301366882}
+  - component: {fileID: 301366884}
   m_Layer: 0
   m_Name: DrawMesh
   m_TagString: Untagged
@@ -231,9 +232,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6268d298fadc95448a92390995df46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _storedDatas: {fileID: 301366884}
   _cam: {fileID: 330585545}
   _path: {fileID: 0}
-  _color: {r: 0.017205715, g: 0, b: 1, a: 0}
+  _color: {r: 1, g: 0, b: 0.11550188, a: 0}
+  _pathThickness: 0.161
+--- !u!114 &301366884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301366880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9076c38bdde379047bf110dfa51a2324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

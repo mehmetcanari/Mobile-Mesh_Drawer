@@ -29,7 +29,11 @@ public class BallSpawner : MonoBehaviour
                 _spawnedBall.transform.SetParent(_ballParent.transform);
                                                                             //TEMPLATE HELPER
                 _spawnedBall.GetComponent<MeshRenderer>().material.color = ColorExtensions.random;
-                Destroy(_spawnedBall, 5);
+
+                if (_spawnedBall)
+                {
+                    Destroy(_spawnedBall, 5);
+                }
             }
         }
     }

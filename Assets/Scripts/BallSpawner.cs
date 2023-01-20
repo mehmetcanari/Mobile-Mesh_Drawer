@@ -27,6 +27,7 @@ public class BallSpawner : MonoBehaviour
                 _spawnedBall.GetComponent<Rigidbody>().AddForce(Vector3.down * 5f, ForceMode.Impulse);
 
                 _spawnedBall.transform.SetParent(_ballParent.transform);
+                                                                            //TEMPLATE HELPER
                 _spawnedBall.GetComponent<MeshRenderer>().material.color = ColorExtensions.random;
                 Destroy(_spawnedBall, 5);
             }

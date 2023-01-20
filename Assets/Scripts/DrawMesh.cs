@@ -69,17 +69,13 @@ public class DrawMesh : MonoBehaviour
 
     public IEnumerator CheckerRecursive()
     {
-        if (_graphic.AllowDraw)
+        if (!_graphic.AllowDraw)
         {
-            Debug.Log("ALLOW");
-        }
-        else
-        {
-            Debug.Log("Not Allow");
             EndDrawTasks();
         }
+
         yield return null;
-        StartCoroutine(CheckerRecursive());
+        StartCoroutine(CheckerRecursive());        
     }
 
     public Vector3 GetStartPosition()

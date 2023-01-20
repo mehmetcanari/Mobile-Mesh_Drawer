@@ -12,6 +12,11 @@ public class GraphicRaycast : MonoBehaviour
     public bool _allowDraw;
     public RaycastResult _globalResult;
 
+    private void Start()
+    {
+        m_EventSystem = FindObjectOfType<EventSystem>();
+    }
+
     void Update()
     {
         switch (GameStates.Instance._state)

@@ -30,6 +30,11 @@ public class DrawMesh : MonoBehaviour
     [Range(0.01f, 0.1f)]
     public float _pathThickness;
 
+    private void Start()
+    {
+        _cam = FindObjectOfType<Camera>();
+    }
+
     public void StartDraw(InputAction.CallbackContext _context)
     {
         switch (GameStates.Instance._state)
@@ -41,6 +46,11 @@ public class DrawMesh : MonoBehaviour
                     Draw();
                     StartCoroutine(CheckerRecursive());
                 }
+                break;
+
+            case States.Finish:
+                EndDrawTasks();
+                _graphic.AllowDraw = false;
                 break;
         }
     }

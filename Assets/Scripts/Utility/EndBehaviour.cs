@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EndBehaviour : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class EndBehaviour : MonoBehaviour
     public BrokenCounter _dataStore;
     public int _brickCount;
     public int _winPercentage;
+
+    public UnityEvent _endTask;
 
     private void Start()
     {
@@ -42,6 +45,8 @@ public class EndBehaviour : MonoBehaviour
         if (CalculatePercentage() >= _winPercentage)
         {
             GameStates.Instance.ChangeState(States.Finish);
+
+            _endTask?.Invoke();
         }
     }
 }

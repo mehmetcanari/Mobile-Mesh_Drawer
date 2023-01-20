@@ -157,4 +157,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radiusCollider: {fileID: 3976845811584214032}
-  _radius: 2
+  _radius: 3

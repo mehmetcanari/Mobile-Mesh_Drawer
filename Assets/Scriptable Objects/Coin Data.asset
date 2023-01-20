@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5874b38b6097ab14bb0833f37f3771be, type: 3}
+  m_Name: Coin Data
+  m_EditorClassIdentifier: 
+  _coinSpawnPositions:
+  - {fileID: 1384265455905865567, guid: 885b0f8b150b45642aa123719294c703, type: 3}
+  - {fileID: 1583302856841220417, guid: ea71e9b9b7d84734db93bab4602333f0, type: 3}
+  - {fileID: 1291789325752331181, guid: 1aa0ca634aa64864e812eede3089d508, type: 3}
+  _coins:
+  - {fileID: 6585047824446194184, guid: f069ba8566fef844cb269671f4a29276, type: 3}
+  - {fileID: 6267718237743347252, guid: 84ff83559af5e7f4eb2e62b46d98425a, type: 3}
+  - {fileID: 8038590091010072828, guid: b60944ffa954b694c85446171e1d11e9, type: 3}
+  - {fileID: 6424464756950670601, guid: 55a83a844a13bc64498beaff87d160ad, type: 3}

@@ -10,7 +10,12 @@ public class BeltSystem : MonoBehaviour
 
     private void Update()
     {
-        MoveObjects();
+        switch (GameStates.Instance._state)
+        {
+            case States.Play:
+                MoveObjects();
+                break;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -26,14 +31,6 @@ public class BeltSystem : MonoBehaviour
         if (collision.gameObject.layer == 7)
         {
             _onBelt.Remove(collision.gameObject);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == 7)
-        {
-            Debug.Log("DESTROY");
         }
     }
 

@@ -19,8 +19,13 @@ public class BallSpawner : MonoBehaviour
 
     private void Update()
     {
-        SpawnConditions();
-        InitDesiredFrames();
+        switch (GameStates.Instance._state)
+        {
+            case States.Play:
+                SpawnConditions();
+                InitDesiredFrames();
+                break;
+        }
     }
 
     private void InitDesiredFrames()

@@ -14,6 +14,16 @@ public class GraphicRaycast : MonoBehaviour
 
     void Update()
     {
+        switch (GameStates.Instance._state)
+        {
+            case States.Play:
+                GraphicDetect();
+                break;
+        }
+    }
+
+    private void GraphicDetect()
+    {
         if (Input.GetMouseButton(0))
         {
             m_PointerEventData = new PointerEventData(m_EventSystem);

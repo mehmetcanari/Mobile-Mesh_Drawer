@@ -32,19 +32,29 @@ public class DrawMesh : MonoBehaviour
 
     public void StartDraw(InputAction.CallbackContext _context)
     {
-        if (_graphic.AllowDraw)
+        switch (GameStates.Instance._state)
         {
-            if (!_context.performed) return;
-            Draw();
-            StartCoroutine(CheckerRecursive());
+            case States.Play:
+                if (_graphic.AllowDraw)
+                {
+                    if (!_context.performed) return;
+                    Draw();
+                    StartCoroutine(CheckerRecursive());
+                }
+                break;
         }
     }
 
     public void EndDraw(InputAction.CallbackContext _context)
     {
-        if(!_context.performed) return;
-        EndDrawTasks();
-        _graphic.AllowDraw = true;
+        switch (GameStates.Instance._state)
+        {
+            case States.Play:
+                if (!_context.performed) return;
+                EndDrawTasks();
+                _graphic.AllowDraw = true;
+                break;
+        }
     }
 
     public void Draw()
